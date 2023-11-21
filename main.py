@@ -1,24 +1,19 @@
 import random
 import sys
 
+from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QPushButton, QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
-class Draw(QWidget):
+class Draw(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.initUI()
+        uic.loadUi('UI.ui', self)
+        self.pushButton.clicked.connect(self.paint)
         self.showMaximized()
         self.setWindowTitle('Git')
-
-    def initUI(self):
         self.do_paint = False
-
-        self.button_1 = QPushButton(self)
-        self.button_1.move(90, 40)
-        self.button_1.setText("Кнопка")
-        self.button_1.clicked.connect(self.paint)
 
     def paint(self):
         self.do_paint = True
@@ -32,9 +27,9 @@ class Draw(QWidget):
             qp.end()
 
     def run(self, qp):
-        h = random.randrange(0, 300)
+        h = random.randrange(0, 500)
         qp.setBrush(QColor(255, 207, 64))
-        qp.drawEllipse(100, 100, h, h)
+        qp.drawEllipse(0, 0, h, h)
 
 
 if __name__ == '__main__':
@@ -42,3 +37,4 @@ if __name__ == '__main__':
     ex = Draw()
     ex.show()
     sys.exit(app.exec())
+
